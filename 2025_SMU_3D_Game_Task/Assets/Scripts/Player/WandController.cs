@@ -25,7 +25,7 @@ public class WandController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Hit Something Else: " + hit.collider.name);
+            Debug.Log("Hit Something Else");
         }
     }
 }

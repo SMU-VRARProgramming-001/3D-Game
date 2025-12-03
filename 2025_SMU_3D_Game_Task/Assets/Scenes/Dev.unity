@@ -11090,6 +11090,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 878642747}
+  - {fileID: 913965580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 168.91, z: 0}
 --- !u!54 &73383335
@@ -40810,7 +40811,7 @@ RectTransform:
   - {fileID: 694960470}
   - {fileID: 376162073}
   - {fileID: 1052468072}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 73383334}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -75261,6 +75262,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 7983745694818577177, guid: 02837b5ce9400a34fb59e0356848c9a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -75499,6 +75504,5 @@ SceneRoots:
   - {fileID: 5020365965084883004}
   - {fileID: 3941433465652707949}
   - {fileID: 73383334}
-  - {fileID: 913965580}
   - {fileID: 1961253066}
   - {fileID: 231021774}

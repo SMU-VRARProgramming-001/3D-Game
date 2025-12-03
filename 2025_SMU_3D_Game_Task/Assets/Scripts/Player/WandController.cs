@@ -5,6 +5,8 @@ public class WandController : MonoBehaviour
     [SerializeField] private float maxDistance = 100f;
     [SerializeField] private ParticleSystem VFX;
 
+    public int attackAmount = 1;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -19,9 +21,10 @@ public class WandController : MonoBehaviour
         RaycastHit hit;
 
         VFX.Play();
-        if (Physics.Raycast(ray, out hit, maxDistance, 1 << 3))
+        if (Physics.Raycast(ray, out hit, maxDistance, 1 << 7))
         {
             Debug.Log("Hit Enemy: " + hit.collider.name);
+            hit.transform.gameObject.GetComponent<EnemyBase>().Damaged(attackAmount);
         }
         else
         {

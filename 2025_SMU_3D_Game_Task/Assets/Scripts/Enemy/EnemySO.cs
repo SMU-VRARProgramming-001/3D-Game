@@ -10,6 +10,8 @@ public class EnemySO : ScriptableObject
     public float maxHealth;
     public float moveSpeed;
     public float attackDamage;
+    public float attackDelayTime;
+    public float attackRange;
 
     [Header("GameObject")]
     public GameObject enemyPrefab;

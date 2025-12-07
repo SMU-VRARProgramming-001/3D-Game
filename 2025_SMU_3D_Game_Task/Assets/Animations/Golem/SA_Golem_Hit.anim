@@ -1120,10 +1120,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 1.9583334
         value: {x: 0.05809418, y: 0.008572682, z: 0.14573242, w: 0.9875797}
-        inSlope: {x: -0.00000075995996, y: -0.0000002570453, z: -0.0000005364423,
-          w: 0}
-        outSlope: {x: -0.00000075995996, y: -0.0000002570453, z: -0.0000005364423,
-          w: 0}
+        inSlope: {x: -0.00000075995996, y: -0.0000002570453, z: -0.0000005364423, w: 0}
+        outSlope: {x: -0.00000075995996, y: -0.0000002570453, z: -0.0000005364423, w: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
@@ -1209,8 +1207,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
       - serializedVersion: 3
         time: 1.9166667
-        value: {x: -0.00000001222512, y: 0.0000000011258522, z: -0.0000000031958887,
-          w: 1}
+        value: {x: -0.00000001222512, y: 0.0000000011258522, z: -0.0000000031958887, w: 1}
         inSlope: {x: -0.15683298, y: 0.0022545196, z: -0.000000038260772, w: 0.0010249595}
         outSlope: {x: -0.15683298, y: 0.0022545196, z: -0.000000038260772, w: 0.0010249595}
         tangentMode: 0
@@ -35837,4 +35834,11 @@ AnimationClip:
     flags: 0
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 1.9166666
+    functionName: DoDamage
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     private float dashCooldownTimer = 0f;
     private Vector3 dashDirection;
 
+    [SerializeField] private GameObject stunScreen;
+    private bool isStunned = false;
+    private float stunTimer = 0f;
+
     private Rigidbody rb;
     private float rotationX = 0f;
 
@@ -22,10 +26,22 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;   
 
         Cursor.lockState = CursorLockMode.Locked;
+        stunScreen.SetActive(false);
     }
 
     void Update()
     {
+        if (isStunned)
+        {
+            stunTimer -= Time.deltaTime;
+            if (stunTimer <= 0)
+            {
+                stunScreen.SetActive(false);
+                isStunned = false;
+            }
+            return; 
+        }
+
         LookAround();
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
@@ -92,5 +108,13 @@ public class PlayerController : MonoBehaviour
 
         Camera.main.transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    public void Stun(float duration)
+    {
+        isStunned = true;
+        stunScreen.SetActive(true);
+        stunTimer = duration;
+        rb.linearVelocity = Vector3.zero;
     }
 }

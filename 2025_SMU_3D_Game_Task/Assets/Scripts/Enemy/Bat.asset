@@ -17,5 +17,5 @@ MonoBehaviour:
   moveSpeed: 10
   attackDamage: 1
   attackDelayTime: 1
-  attackRange: 3.5
+  attackRange: 4.5
   enemyPrefab: {fileID: 9101852927316913024, guid: e5fa3f06a6be98145a2e815cd50af9e5, type: 3}

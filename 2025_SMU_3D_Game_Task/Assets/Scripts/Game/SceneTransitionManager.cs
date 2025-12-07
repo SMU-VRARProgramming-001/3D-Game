@@ -6,6 +6,9 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public static SceneTransitionManager Instance;
 
+    private GameObject playerPrefab;
+    private GameObject playerInstance;
+
     [Header("Animation")]
     public Animator animator;
     private float transitionTime = 1f;
@@ -30,6 +33,11 @@ public class SceneTransitionManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+    private void Start()
+    {
+        playerPrefab = Resources.Load<GameObject>("Player");
+    }
+
     public void ChangeScene(string sceneName)
     {
         StartCoroutine(DoTransition(sceneName));
@@ -45,7 +53,38 @@ public class SceneTransitionManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene Loaded!");
+        Transform spawnPoint = GameObject.FindWithTag("PlayerSpawn")?.transform;
+        if (spawnPoint != null)
+        {
+            SpawnPlayer(spawnPoint.position);
+        }
+        else
+        {
+            DestroyPlayer();
+        }
+
         animator.SetTrigger("Open");
+    }
+
+    private void SpawnPlayer(Vector3 position)
+    {
+        if (playerInstance == null)
+        {
+            playerInstance = Instantiate(playerPrefab, position, Quaternion.identity);
+            DontDestroyOnLoad(playerInstance);
+        }
+        else
+        {
+            playerInstance.transform.position = position;
+        }
+    }
+
+    private void DestroyPlayer()
+    {
+        if (playerInstance != null)
+        {
+            Destroy(playerInstance);
+        }
+        playerInstance = null;
     }
 }

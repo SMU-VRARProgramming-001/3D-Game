@@ -1,3 +1,4 @@
+using System.Data;
 using UnityEngine;
 
 public class WandController : MonoBehaviour
@@ -5,7 +6,22 @@ public class WandController : MonoBehaviour
     [SerializeField] private float maxDistance = 100f;
     [SerializeField] private ParticleSystem VFX;
 
-    public int attackAmount = 1;
+    private int attackPower;
+
+    private void OnEnable()
+    {
+        PlayerStats.Instance.OnStatsChanged += UpdateStat;
+    }
+
+    private void OnDisable()
+    {
+        PlayerStats.Instance.OnStatsChanged -= UpdateStat;
+    }
+
+    private void Start()
+    {
+        UpdateStat();
+    }
 
     void Update()
     {
@@ -24,11 +40,15 @@ public class WandController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, maxDistance, 1 << 7))
         {
             Debug.Log("Hit Enemy: " + hit.collider.name);
-            hit.transform.gameObject.GetComponent<EnemyBase>().Damaged(attackAmount);
+            hit.transform.gameObject.GetComponent<EnemyBase>().Damaged(attackPower);
         }
         else
         {
             Debug.Log("Hit Something Else");
         }
+    }
+    private void UpdateStat()
+    {
+        attackPower = PlayerStats.Instance.attackPower;
     }
 }

@@ -20,7 +20,7 @@ public class EnemyBase : MonoBehaviour
 
     private float idleTimer = 0f;
 
-    private float attackDamage;
+    private int attackDamage;
     private float attackRange;
     private float attackDelayTime;
     private float attackTimer;
@@ -163,6 +163,7 @@ public class EnemyBase : MonoBehaviour
     {
         animator.SetTrigger("Die");
         agent.velocity = Vector3.zero;
+        FindAnyObjectByType<StageManager>()?.OnEnemyKilled();
     }
     public void Destoy()
     {

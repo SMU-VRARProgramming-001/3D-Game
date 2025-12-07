@@ -1,24 +1,55 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private float maxHealth= 10;
-    public float health;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private TMP_Text maxHealthTxt;
+    [SerializeField] private TMP_Text curHealthTxt;
+
+    private float curHealth;
+    private float maxHealth;
+    private void OnEnable()
+    {
+        PlayerStats.Instance.OnStatsChanged += UpdateMaxHealth;
+    }
+
+    private void OnDisable()
+    {
+        PlayerStats.Instance.OnStatsChanged -= UpdateMaxHealth;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        health = maxHealth;
-        healthSlider.value = health / maxHealth;
+        UpdateMaxHealth();
     }
-    public void Damage(float damage)
+    public void Damage(int damage)
     {
-        health -= damage;
-        healthSlider.value = health / maxHealth;
-        if(health < 0)
+        PlayerStats.Instance.ApplyDamage(damage);
+
+        curHealth = PlayerStats.Instance.curHealth;
+        UpdateUI();
+
+        if (curHealth <= 0)
         {
-            Debug.Log("GameOver");
+            Debug.Log("Player Dead");
+            GameManager.Instance.GameOver();
         }
+    }
+
+    private void UpdateMaxHealth()
+    {
+        maxHealth = PlayerStats.Instance.maxHealth;
+        curHealth = PlayerStats.Instance.curHealth;
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        curHealthTxt.text = curHealth.ToString();
+        maxHealthTxt.text = maxHealth.ToString();
+        healthSlider.value = curHealth / maxHealth;
     }
 }

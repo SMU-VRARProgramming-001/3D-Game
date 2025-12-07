@@ -9,7 +9,7 @@ public class EnemySO : ScriptableObject
     [Header("Stats")]
     public float maxHealth;
     public float moveSpeed;
-    public float attackDamage;
+    public int attackDamage;
     public float attackDelayTime;
     public float attackRange;
 

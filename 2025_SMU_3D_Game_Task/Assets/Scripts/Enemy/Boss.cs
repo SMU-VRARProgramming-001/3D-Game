@@ -39,12 +39,12 @@ public class Boss : EnemyBase
                 break;
 
             case 1:
-                //SpawnEnemies();
+                SpawnEnemies();
                 Debug.Log("Spawn Enemies");
                 break;
 
             case 2:
-                StunPlayer();
+                StunAnimation();
                 Debug.Log("Stun Player");
                 break;
         }
@@ -69,9 +69,13 @@ public class Boss : EnemyBase
         }
     }
 
-    private void StunPlayer()
+    private void StunAnimation()
     {
         animator.SetTrigger("Attack2");
+    }
+
+    private void StunPlayer()
+    {
         Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, 1 << 6);
 
         foreach (Collider hit in hits)

@@ -38,13 +38,24 @@ public class WandController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
-        VFX.Play();
+        if (VFX != null)
+            VFX.Play();
+
         if (Physics.Raycast(ray, out hit, maxDistance, 1 << 7))
         {
-            //Debug.Log("Hit Enemy: " + hit.collider.name);
-            hit.transform.gameObject.GetComponent<EnemyBase>().Damaged(attackPower);
+            Debug.Log("Hit Enemy: " + hit.collider.name);
+            var enemy = hit.transform.GetComponent<EnemyBase>();
+            if (enemy != null)
+            {
+                enemy.Damaged(attackPower);
+            }
+        }
+        else
+        {
+            Debug.Log("Miss!");
         }
     }
+
     private void UpdateStat()
     {
         attackPower = PlayerStats.Instance.attackPower;

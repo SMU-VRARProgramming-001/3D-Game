@@ -4,38 +4,38 @@ using UnityEngine.UIElements;
 
 public class NPCManager : MonoBehaviour
 {
-    private int statPoint = 0;
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject UIPannel;
     [SerializeField] private TMP_Text statPointTxt;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         UIPannel.SetActive(false);
-        statPoint = PlayerStats.Instance.statPoint;
-        statPointTxt.text = statPoint.ToString();
+        statPointTxt.text = PlayerStats.Instance.statPoint.ToString();
     }
     public void GrowHealth()
     {
-        if(statPoint > 0)
+        if(PlayerStats.Instance.statPoint > 0)
         {
             PlayerStats.Instance.AddMaxHealthStat(10);
-            statPoint--;
-            statPointTxt.text = statPoint.ToString();
+            PlayerStats.Instance.statPoint--;
+            statPointTxt.text = PlayerStats.Instance.statPoint.ToString();
         }
     }
     public void GrowAttackPower()
     {
-        if (statPoint > 0)
+        if (PlayerStats.Instance.statPoint > 0)
         {
             PlayerStats.Instance.AddAttackStat(2);
-            statPoint--;
-            statPointTxt.text = statPoint.ToString();
+            PlayerStats.Instance.statPoint--;
+            statPointTxt.text = PlayerStats.Instance.statPoint  .ToString();
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            animator.SetTrigger("Greet");
             UIPannel.SetActive(true);
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             UnityEngine.Cursor.visible = true;

@@ -16,7 +16,7 @@ public class EnemyBase : MonoBehaviour
 
     public EnemyState state = EnemyState.Idle;
 
-    private float minDistance = 3f;
+    private static readonly WaitForSeconds WaitDelay = new WaitForSeconds(4f);
 
     [SerializeField] private EnemySO enemySO;
     protected float health;
@@ -40,8 +40,8 @@ public class EnemyBase : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
 
         StartCoroutine(FindPlayer());
     }
@@ -74,6 +74,7 @@ public class EnemyBase : MonoBehaviour
     }
     private IEnumerator FindPlayer()
     {
+        //yield return WaitDelay;
         while (player == null)
         {
             GameObject target = GameObject.FindWithTag("Player");
@@ -88,8 +89,9 @@ public class EnemyBase : MonoBehaviour
         health = MaxHealth;
         agent.speed = enemySO.moveSpeed;
         attackDamage = enemySO.attackDamage;
-        attackRange = enemySO.attackRange;
         attackDelayTime = enemySO.attackDelayTime;
+        attackRange = enemySO.attackRange;
+        agent.stoppingDistance = attackRange;
     }
 
     private void Idle()
@@ -117,19 +119,13 @@ public class EnemyBase : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if (distance > minDistance)
-        {
-            agent.SetDestination(player.position);
-        }
-        else
+        if (distance <= agent.stoppingDistance)
         {
             agent.ResetPath(); 
+            state = EnemyState.Attack;
+            return;
         }
 
-        if (distance < attackRange)
-        {
-            state = EnemyState.Attack;
-        }
     }
     private void Attack()
     {
@@ -170,6 +166,7 @@ public class EnemyBase : MonoBehaviour
     public virtual void Damage()
     {
         Debug.Log("damage clear");
+        agent.ResetPath();
         if (health <= 0)
         {
             state = EnemyState.Die;

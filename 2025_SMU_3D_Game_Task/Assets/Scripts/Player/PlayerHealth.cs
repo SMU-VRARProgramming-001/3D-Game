@@ -50,6 +50,6 @@ public class PlayerHealth : MonoBehaviour
     {
         curHealthTxt.text = curHealth.ToString();
         maxHealthTxt.text = maxHealth.ToString();
-        healthSlider.value = curHealth / maxHealth;
+        healthSlider.value = (float)curHealth / (float)maxHealth;
     }
 }

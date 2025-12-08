@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SetState(GameState.GameOver);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneTransitionManager.Instance.ChangeScene("GameOverScene");
     }
 

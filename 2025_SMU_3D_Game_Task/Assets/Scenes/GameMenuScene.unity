@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46aeed6107af734fa96ec80f325d4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageProgress: 0
+  stageProgress: 2
 --- !u!4 &293424451
 Transform:
   m_ObjectHideFlags: 0
@@ -1414,8 +1414,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0b5f55fa0ae50428499263bbd89da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statPoint: 0
   attackPower: 1
   maxHealth: 10
+  curHealth: 10
 --- !u!4 &2011759156
 Transform:
   m_ObjectHideFlags: 0

@@ -1,9 +1,11 @@
 using System.Data;
+using TMPro;
 using UnityEngine;
 
 public class WandController : MonoBehaviour
 {
     [SerializeField] private float maxDistance = 100f;
+    [SerializeField] private TMP_Text attackPowerTxt;
     [SerializeField] private ParticleSystem VFX;
 
     private int attackPower;
@@ -36,19 +38,27 @@ public class WandController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
         RaycastHit hit;
 
-        VFX.Play();
+        if (VFX != null)
+            VFX.Play();
+
         if (Physics.Raycast(ray, out hit, maxDistance, 1 << 7))
         {
             Debug.Log("Hit Enemy: " + hit.collider.name);
-            hit.transform.gameObject.GetComponent<EnemyBase>().Damaged(attackPower);
+            var enemy = hit.transform.GetComponent<EnemyBase>();
+            if (enemy != null)
+            {
+                enemy.Damaged(attackPower);
+            }
         }
         else
         {
-            Debug.Log("Hit Something Else");
+            Debug.Log("Miss!");
         }
     }
+
     private void UpdateStat()
     {
         attackPower = PlayerStats.Instance.attackPower;
+        attackPowerTxt.text = attackPower.ToString();
     }
 }

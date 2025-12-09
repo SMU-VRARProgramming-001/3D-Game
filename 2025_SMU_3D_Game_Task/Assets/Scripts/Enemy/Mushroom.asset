@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Mushroom
   maxHealth: 7
-  moveSpeed: 5
+  moveSpeed: 6
   attackDamage: 3
-  attackDelayTime: 2
-  attackRange: 3
+  attackDelayTime: 1
+  attackRange: 4
   enemyPrefab: {fileID: 9162172458499445420, guid: eaf17ac7014437a48abcba26096d3cf0, type: 3}

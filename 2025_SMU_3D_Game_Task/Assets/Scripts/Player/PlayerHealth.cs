@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
 
     private float curHealth;
     private float maxHealth;
+
+    private bool isDead;
     private void OnEnable()
     {
         PlayerStats.Instance.OnStatsChanged += UpdateMaxHealth;
@@ -23,20 +26,24 @@ public class PlayerHealth : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isDead = false;
         UpdateMaxHealth();
     }
     public void Damage(int damage)
     {
+        if(isDead) return;
+
+        if (curHealth <= 0)
+        {
+            isDead = true;
+            Debug.Log("Player Dead");
+            GameManager.Instance.GameOver();
+        }
+
         PlayerStats.Instance.ApplyDamage(damage);
 
         curHealth = PlayerStats.Instance.curHealth;
         UpdateUI();
-
-        if (curHealth <= 0)
-        {
-            Debug.Log("Player Dead");
-            GameManager.Instance.GameOver();
-        }
     }
 
     private void UpdateMaxHealth()

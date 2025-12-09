@@ -11,6 +11,7 @@ public class EnemyBase : MonoBehaviour
         Move,
         Attack,
         Damage,
+        Cooldown,
         Die
     }
 
@@ -27,8 +28,8 @@ public class EnemyBase : MonoBehaviour
     protected int attackDamage;
     protected float attackRange;
     private float attackDelayTime;
-    private float attackTimer;
     private bool isAttacking = false;
+    private float cooldownTimer;
 
     [SerializeField] private ParticleSystem damageParticle;
 
@@ -65,6 +66,10 @@ public class EnemyBase : MonoBehaviour
                 break;
 
             case EnemyState.Damage:
+                break;
+
+            case EnemyState.Cooldown:
+                Cooldown();
                 break;
 
             case EnemyState.Die:
@@ -121,6 +126,7 @@ public class EnemyBase : MonoBehaviour
 
         if (distance <= agent.stoppingDistance)
         {
+            animator.SetBool("Walk", false);
             agent.ResetPath(); 
             state = EnemyState.Attack;
             return;
@@ -136,14 +142,18 @@ public class EnemyBase : MonoBehaviour
         if (!isAttacking)
         {
             isAttacking = true;
-            attackTimer = 0f;
             PerformAttack();
+            state = EnemyState.Cooldown;
         }
+    }
 
-        attackTimer += Time.deltaTime;
-        if (attackTimer >= attackDelayTime)
+    private void Cooldown()
+    {
+        isAttacking = false;
+        cooldownTimer += Time.deltaTime;
+        if (cooldownTimer >= attackDelayTime)
         {
-            isAttacking = false;
+            cooldownTimer = 0f;
             state = EnemyState.Move;
         }
     }
@@ -174,7 +184,7 @@ public class EnemyBase : MonoBehaviour
         }
         else
         {
-            state = EnemyState.Move;
+            state = EnemyState.Cooldown;
         }
     }
 

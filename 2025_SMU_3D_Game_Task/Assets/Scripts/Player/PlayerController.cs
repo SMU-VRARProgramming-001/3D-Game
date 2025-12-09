@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isStunned) return;
         Move();
     }
 

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class VillageManager : MonoBehaviour
 {
-    // Scene Load
     public void LoadStage1()
     {
         Cursor.lockState = CursorLockMode.Locked;

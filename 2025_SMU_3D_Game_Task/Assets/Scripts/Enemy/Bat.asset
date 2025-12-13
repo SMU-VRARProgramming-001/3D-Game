@@ -16,6 +16,6 @@ MonoBehaviour:
   maxHealth: 2
   moveSpeed: 8
   attackDamage: 1
-  attackDelayTime: 1
+  attackDelayTime: 0.5
   attackRange: 4
   enemyPrefab: {fileID: 9101852927316913024, guid: e5fa3f06a6be98145a2e815cd50af9e5, type: 3}

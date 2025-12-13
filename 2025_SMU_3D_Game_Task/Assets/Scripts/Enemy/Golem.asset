@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Golem
   m_EditorClassIdentifier: 
   enemyName: Golem
-  maxHealth: 100
-  moveSpeed: 1
+  maxHealth: 150
+  moveSpeed: 5
   attackDamage: 9
   attackDelayTime: 2
-  attackRange: 6
+  attackRange: 12
   enemyPrefab: {fileID: 7983745694818577177, guid: 02837b5ce9400a34fb59e0356848c9a0, type: 3}

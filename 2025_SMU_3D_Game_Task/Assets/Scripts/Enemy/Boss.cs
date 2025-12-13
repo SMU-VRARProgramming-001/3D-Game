@@ -35,6 +35,7 @@ public class Boss : EnemyBase
         switch(pattern)
         {
             case 0:
+                animator.SetTrigger("Attack");
                 Debug.Log("Basic Attack");
                 break;
 
@@ -76,11 +77,11 @@ public class Boss : EnemyBase
 
     private void StunPlayer()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, 1 << 6);
+        Collider[] hits = Physics.OverlapSphere(transform.position, 15, 1 << 6);
 
         foreach (Collider hit in hits)
         {
-            hit.GetComponent<PlayerController>().Stun(3f);
+            hit.GetComponentInParent<PlayerController>().Stun(3f);
         }
     }
 

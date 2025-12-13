@@ -13,6 +13,13 @@ public class SceneTransitionManager : MonoBehaviour
     public Animator animator;
     private float transitionTime = 1f;
 
+    [SerializeField] private Camera cam;
+    [SerializeField] private GameObject circleImg;
+
+    [SerializeField] private GameObject stage1;
+    [SerializeField] private GameObject stage2;
+    [SerializeField] private GameObject bossStage;
+
     private void Awake()
     {
         if(Instance != null)
@@ -36,6 +43,11 @@ public class SceneTransitionManager : MonoBehaviour
     private void Start()
     {
         playerPrefab = Resources.Load<GameObject>("Player");
+
+        cam.gameObject.SetActive(false);
+        stage1.SetActive(false);
+        stage2.SetActive(false);
+        bossStage.SetActive(false);
     }
 
     public void ChangeScene(string sceneName)
@@ -45,14 +57,54 @@ public class SceneTransitionManager : MonoBehaviour
     private IEnumerator DoTransition(string sceneName)
     {
         Debug.Log("Scene Loading...");
+
         animator.SetTrigger("Close");
         yield return new WaitForSeconds(transitionTime);
+
+        GameObject cutscene = GetCutscene(sceneName);
+        if (cutscene != null)
+        {
+            DestroyPlayer();
+
+            SetVillageCanvas(false);
+            circleImg.SetActive(false);
+            cam.gameObject.SetActive(true);
+
+            cutscene.SetActive(true);
+            yield return new WaitForSeconds(4f);
+            cutscene.SetActive(false);
+
+            SetVillageCanvas(true);
+            circleImg.SetActive(true);
+        }
 
         SceneManager.LoadScene(sceneName);
     }
 
+
+    private GameObject GetCutscene(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "GameStage1": return stage1;
+            case "GameStage2": return stage2;
+            case "GameBossStage": return bossStage;
+            default: return null;
+        }
+    }
+    private void SetVillageCanvas(bool active)
+    {
+        GameObject canvas = GameObject.FindWithTag("VillageCanvas");
+        if (canvas != null)
+        {
+            canvas.SetActive(active);
+        }
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        cam.gameObject.SetActive(false);
+
         Transform spawnPoint = GameObject.FindWithTag("PlayerSpawn")?.transform;
         if (spawnPoint != null)
         {

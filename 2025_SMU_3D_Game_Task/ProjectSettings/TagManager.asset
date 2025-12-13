@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - PlayerSpawn
+  - VillageCanvas
   layers:
   - Default
   - TransparentFX

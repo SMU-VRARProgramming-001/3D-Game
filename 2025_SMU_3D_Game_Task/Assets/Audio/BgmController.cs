@@ -46,7 +46,7 @@ public class BgmController : MonoBehaviour
     void Play(AudioClip clip, bool loop)
     {
         if (source == null || clip == null) return;
-        if (current == clip && source.isPlaying) return; // 중복 재생 방지
+        if (current == clip && source.isPlaying) return; // Prevent Audio duplicate
 
         current = clip;
         source.loop = loop;
@@ -54,7 +54,6 @@ public class BgmController : MonoBehaviour
         source.Play();
     }
 
-    // (옵션) 필요하면 강제로 끄기
     public void StopBgm()
     {
         if (source == null) return;

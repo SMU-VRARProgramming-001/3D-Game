@@ -75731,7 +75731,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Stage2\uC744 \uD074\uB9AC\uC5B4\uD574\uC57C \uC785\uC7A5\uD560 \uC218
+  m_text: "Stage1\uC744 \uD074\uB9AC\uC5B4\uD574\uC57C \uC785\uC7A5\uD560 \uC218
     \uC788\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 459b28a152188844fa6a43c7b3370db8, type: 2}

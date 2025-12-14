@@ -63,7 +63,6 @@ public class SceneTransitionManager : MonoBehaviour
     }
     private IEnumerator DoTransition(string sceneName)
     {
-        Debug.Log($"[STM] DoTransition called: {sceneName}");
         Debug.Log("Scene Loading...");
 
         animator.SetTrigger("Close");
@@ -153,7 +152,6 @@ public class SceneTransitionManager : MonoBehaviour
     }
     private void PlayCutsceneBgm(string sceneName)
     {
-        Debug.Log($"[STM] PlayCutsceneBgm called: {sceneName}, bgm null? {bgm == null}"); 
         if (bgm == null) return;
 
         switch (sceneName)

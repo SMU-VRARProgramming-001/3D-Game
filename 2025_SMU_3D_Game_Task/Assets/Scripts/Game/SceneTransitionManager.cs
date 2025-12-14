@@ -20,9 +20,11 @@ public class SceneTransitionManager : MonoBehaviour
     [SerializeField] private GameObject stage2;
     [SerializeField] private GameObject bossStage;
 
+    public BgmController bgm;
+
     private void Awake()
     {
-        if(Instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
@@ -48,6 +50,11 @@ public class SceneTransitionManager : MonoBehaviour
         stage1.SetActive(false);
         stage2.SetActive(false);
         bossStage.SetActive(false);
+
+        if(bgm != null)
+        {
+            bgm.PlayGameStart();
+        }
     }
 
     public void ChangeScene(string sceneName)
@@ -64,6 +71,8 @@ public class SceneTransitionManager : MonoBehaviour
         GameObject cutscene = GetCutscene(sceneName);
         if (cutscene != null)
         {
+            PlayCutsceneBgm(sceneName); //Cutscene BGM Play
+
             DestroyPlayer();
 
             SetVillageCanvas(false);
@@ -116,6 +125,8 @@ public class SceneTransitionManager : MonoBehaviour
         }
 
         animator.SetTrigger("Open");
+
+        PlaySceneBgm(scene.name);
     }
 
     private void SpawnPlayer(Vector3 position)
@@ -138,5 +149,57 @@ public class SceneTransitionManager : MonoBehaviour
             Destroy(playerInstance);
         }
         playerInstance = null;
+    }
+    private void PlayCutsceneBgm(string sceneName)
+    {
+        if (bgm == null) return;
+
+        switch (sceneName)
+        {
+            case "GameStage1":
+                bgm.PlayCutsceneBat();
+                break;
+            case "GameStage2":
+                bgm.PlayCutsceneMush();
+                break;
+            case "GameBossStage":
+                bgm.PlayCutsceneBoss();
+                break;
+        }
+    }
+    private void PlaySceneBgm(string sceneName)
+    {
+        if (bgm == null) return;
+
+        switch (sceneName)
+        {
+            case "GameMenuScene":
+                bgm.PlayGameStart();
+                break;
+
+            case "GameVillageScene":
+                bgm.PlayVillage();
+                break;
+
+            case "GameStage1":
+                bgm.PlayBattleBat();
+                break;
+
+            case "GameStage2":
+                bgm.PlayBattleMush();
+                break;
+
+            case "GameBossStage":
+                bgm.PlayBattleBoss();
+                break;
+
+            case "GameEndingScene":
+                bgm.PlayEnding();
+                break;
+
+            case "GameOverScene":
+                bgm.PlayGameOver();
+                break;
+        }
     }
 }

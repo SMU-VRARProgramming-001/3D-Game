@@ -37,6 +37,10 @@ public class EnemyBase : MonoBehaviour
     protected Transform player;
     protected Animator animator;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip dieSFX;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
@@ -50,7 +54,6 @@ public class EnemyBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        //Debug.Log($"current State: {state}");
         switch (state)
         {
             case EnemyState.Idle:
@@ -79,7 +82,6 @@ public class EnemyBase : MonoBehaviour
     }
     private IEnumerator FindPlayer()
     {
-        //yield return WaitDelay;
         while (player == null)
         {
             GameObject target = GameObject.FindWithTag("Player");
@@ -201,6 +203,12 @@ public class EnemyBase : MonoBehaviour
     {
         animator.SetTrigger("Die");
         agent.velocity = Vector3.zero;
+
+        if (audioSource != null && dieSFX != null)
+        {
+            audioSource.PlayOneShot(dieSFX);
+        }
+
         FindAnyObjectByType<StageManager>()?.OnEnemyKilled();
     }
     public void Destoy()

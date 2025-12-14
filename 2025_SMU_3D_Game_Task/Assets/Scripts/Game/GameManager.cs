@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         switch(state)
         {
             case GameState.StartMenu:
-                Debug.Log("[GameManager] SGameManager");
+                Debug.Log("[GameManager] GameManager");
                 break;
 
             case GameState.InGame:
@@ -60,12 +60,6 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneTransitionManager.Instance.ChangeScene("GameOverScene");
-    }
-
-    public void ReturnToMenu()
-    {
-        SetState(GameState.StartMenu);
-        SceneTransitionManager.Instance.ChangeScene("GameMenuScene");
     }
 
     public void Exit()

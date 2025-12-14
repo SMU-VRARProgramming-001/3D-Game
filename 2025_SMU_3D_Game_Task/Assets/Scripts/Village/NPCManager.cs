@@ -7,6 +7,8 @@ public class NPCManager : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject UIPannel;
     [SerializeField] private TMP_Text statPointTxt;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip dieSFX;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,6 +22,11 @@ public class NPCManager : MonoBehaviour
             PlayerStats.Instance.AddMaxHealthStat(10);
             PlayerStats.Instance.statPoint--;
             statPointTxt.text = PlayerStats.Instance.statPoint.ToString();
+
+            if (audioSource != null && dieSFX != null)
+            {
+                audioSource.PlayOneShot(dieSFX);
+            }
         }
     }
     public void GrowAttackPower()
@@ -29,6 +36,11 @@ public class NPCManager : MonoBehaviour
             PlayerStats.Instance.AddAttackStat(2);
             PlayerStats.Instance.statPoint--;
             statPointTxt.text = PlayerStats.Instance.statPoint  .ToString();
+
+            if (audioSource != null && dieSFX != null)
+            {
+                audioSource.PlayOneShot(dieSFX);
+            }
         }
     }
     private void OnTriggerEnter(Collider other)

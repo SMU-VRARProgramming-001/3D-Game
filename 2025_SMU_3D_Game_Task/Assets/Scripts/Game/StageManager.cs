@@ -34,7 +34,7 @@ public class StageManager : MonoBehaviour
 
         GameManager.Instance.stageProgress++;
         PlayerStats.Instance.statPoint++;
-        StartCoroutine(GoToTownAfterDelay(2f));
+        StartCoroutine(GoToTownAfterDelay(1.5f));
     }
 
 

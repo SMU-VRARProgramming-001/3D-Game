@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class StageEntrance : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class StageEntrance : MonoBehaviour
     [SerializeField] private int requiredProgress;
     [SerializeField] private GameObject enterPanel;
     [SerializeField] private GameObject enterBtn;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip dieSFX;
 
     private void Start()
     {
@@ -28,6 +31,11 @@ public class StageEntrance : MonoBehaviour
                 enterBtn.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+            }
+
+            if (audioSource != null && dieSFX != null)
+            {
+                audioSource.PlayOneShot(dieSFX);
             }
         }
     }
